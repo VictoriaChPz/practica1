@@ -1,0 +1,127 @@
+$primary-color: #006400;
+$secondary-color: #28a745;
+$light-bg: #f0f4f8;
+$dark-bg: #121212;
+$light-text: #333;
+$dark-text: #e0e0e0;
+$font-stack: 'Arial', sans-serif;
+$padding-standard: 1.25rem;
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin button-style($bg-color, $hover-color) {
+    padding: 0.625rem 1.25rem;
+    background-color: $bg-color;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $hover-color;
+    }
+}
+
+@mixin container-grid($columns) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+body {
+    font-family: $font-stack;
+    background-color: $light-bg;
+    color: $light-text;
+    padding: 1rem;
+
+    @media (prefers-color-scheme: dark) {
+        background-color: $dark-bg;
+        color: $dark-text;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.header {
+    @include flex-center;
+    justify-content: space-between;
+    background-color: $primary-color;
+    color: white;
+    padding: $padding-standard;
+
+    .header__nav {
+        ul {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+        }
+    }
+}
+
+.main-content {
+    padding: 1rem;
+}
+
+.hero {
+    text-align: center;
+    margin: 2rem 0;
+
+    &__title {
+        font-size: clamp(2rem, 4vw, 3rem);
+        margin-bottom: 1rem;
+    }
+
+    &__description {
+        font-size: clamp(1rem, 2.5vw, 1.5rem);
+    }
+}
+
+.category-grid {
+    @include container-grid(3); // Reutiliza el mixin para grid
+
+    .category {
+        background-color: #fff;
+        padding: 1.5rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 0.5rem;
+
+        &__title {
+            font-size: 1.5rem;
+        }
+
+        &__description {
+            margin: 0.5rem 0;
+        }
+
+        &__button {
+            @include button-style($secondary-color, darken($secondary-color, 10%));
+        }
+    }
+}
+
+.footer {
+    @include flex-center;
+    background-color: $primary-color;
+    color: white;
+    padding: $padding-standard;
+
+    @media (prefers-color-scheme: dark) {
+        background-color: darken($primary-color, 20%);
+    }
+}
+%button-base {
+    padding: 0.625rem 1.25rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+.category__button, .footer__button {
+    @extend %button-base;
+}
